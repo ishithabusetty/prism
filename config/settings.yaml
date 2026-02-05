@@ -1,0 +1,61 @@
+# Global Settings for Harmful Content Detection Pipeline
+
+# Project Paths (relative to project root)
+paths:
+  data: data/
+  models: models/
+  outputs: sample_outputs/
+  config: config/
+
+# Model Weights Paths
+model_weights:
+  weapon_detector: models/weapon_detector/best.pt
+  logo_detector: models/logo_detector/best.pt
+  text_classifier: models/text_classifier/
+
+# Device Configuration
+device:
+  use_gpu: true
+  gpu_id: 0
+
+# Video Processing
+video:
+  frame_interval: 30  # Extract every Nth frame
+  max_frames: 100     # Maximum frames to process per video
+  supported_formats:
+    - .mp4
+    - .avi
+    - .mov
+    - .mkv
+
+# Image Configuration
+image:
+  max_size: 1280
+  supported_formats:
+    - .jpg
+    - .jpeg
+    - .png
+    - .bmp
+    - .webp
+
+# Decision Engine Settings
+decision_engine:
+  # Any detection above these thresholds triggers UNSAFE
+  weapon_threshold: 0.5
+  logo_threshold: 0.6
+  text_promotional_threshold: 0.7
+  text_abusive_threshold: 0.8
+  
+  # Priority weighting (for logging/reporting)
+  priority:
+    weapon: 1      # Highest priority
+    abusive_text: 2
+    competitor_logo: 3
+    promotional_text: 4
+
+# Output Settings
+output:
+  save_visualizations: true
+  save_json_results: true
+  visualization_bbox_thickness: 2
+  visualization_font_scale: 0.6

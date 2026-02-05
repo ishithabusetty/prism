@@ -1,0 +1,49 @@
+# Logo Detection Classes
+# Samsung Competitor Brands for YOLOv8 training
+
+classes:
+  0: apple
+  1: google
+  2: huawei
+  3: xiaomi
+  4: oneplus
+  5: oppo
+  6: vivo
+  7: sony
+  8: lg
+  9: samsung  # Own brand (for reference/validation)
+
+# Brand categories
+categories:
+  direct_competitors:
+    - apple
+    - google
+    - huawei
+    - xiaomi
+  regional_competitors:
+    - oneplus
+    - oppo
+    - vivo
+  legacy_competitors:
+    - sony
+    - lg
+  own_brand:
+    - samsung
+
+# Detection thresholds
+thresholds:
+  confidence_min: 0.6
+  nms_iou: 0.45
+
+# Competitor detection flags
+# If any of these are detected, flag as UNSAFE (competitor content)
+flag_as_competitor:
+  - apple
+  - google
+  - huawei
+  - xiaomi
+  - oneplus
+  - oppo
+  - vivo
+  - sony
+  - lg

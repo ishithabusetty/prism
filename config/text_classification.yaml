@@ -1,0 +1,63 @@
+# Text Classification Configuration
+# OCR + NLP Pipeline Settings
+
+# EasyOCR Settings
+ocr:
+  languages:
+    - en
+  gpu: true
+  paragraph: false
+  min_confidence: 0.3
+
+# Text Classification Labels
+labels:
+  0: SAFE
+  1: PROMOTIONAL
+  2: ABUSIVE
+
+# DistilBERT Model Configuration
+model:
+  name: distilbert-base-uncased
+  max_length: 128
+  num_labels: 3
+
+# Training Configuration
+training:
+  epochs: 5
+  batch_size: 16
+  learning_rate: 2e-5
+  warmup_steps: 500
+  weight_decay: 0.01
+
+# Promotional Keywords (for training data augmentation)
+promotional_patterns:
+  - "buy now"
+  - "limited offer"
+  - "sale"
+  - "discount"
+  - "% off"
+  - "free shipping"
+  - "order today"
+  - "special offer"
+  - "exclusive deal"
+  - "hurry"
+  - "act now"
+  - "limited time"
+  - "best price"
+  - "save money"
+  - "clearance"
+
+# Abusive Keywords (for training data augmentation)
+# Note: These are indicators, actual classification uses context
+abusive_indicators:
+  - hate_speech
+  - threats
+  - violent_language
+  - slurs
+  - harassment
+
+# Classification Thresholds
+thresholds:
+  promotional_confidence: 0.7
+  abusive_confidence: 0.8
+  safe_confidence: 0.5
