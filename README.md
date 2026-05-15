@@ -1,73 +1,137 @@
-Omni-Guard: Multi-Modal Compliance & IPR Auditor
+# Omni-Guard : Multi-Modal Compliance & IPR Auditor
+
 Omni-Guard is an advanced AI-driven auditing suite designed to automate the detection of regulatory violations and Intellectual Property (IP) theft in digital media. By combining Computer Vision (OCR), Speech-to-Text (ASR), and Large Language Models (LLMs), it provides a comprehensive 360-degree analysis of video and image content.
 
-🚀 Overview
+## 🚀 Overview
+
 Traditional moderation tools often fail to capture the context of a video. Omni-Guard solves this by "hearing" the audio and "seeing" the visual text simultaneously. It cross-references this data against global databases to ensure that content adheres to legal standards regarding politics, regulated substances, and medical claims.
 
-🛠 Tech Stack
-AI & Machine Learning
-LLM (The Brain): Gemini 2.5 Flash — Handles semantic reasoning, intent detection, and multi-domain regulatory audits.
+## Features
 
-ASR (Hearing): OpenAI Whisper (Tiny) — Converts spoken dialogue into searchable text.
+- Multi-modal extraction: ASR (audio) + OCR (frames) + LLM reasoning
+- Plagiarism/structure similarity scoring against a BigQuery reference corpus
+- Political-communication detection (disclaimer/authorization checks)
+- Regulated-substance promotion detection (alcohol, tobacco, vaping)
+- Medical and weight-loss claim verification and disclaimer checks
+- Automated contextual compliance reporting
+- Real-time multimedia audit workflow
+- Multi-domain regulatory risk assessment
+- Cross-modal verification using audio and visual evidence
 
-OCR (Seeing): EasyOCR — Extracts on-screen text, brand names, and hidden disclaimers from video frames.
+## Core Audit Domains
 
-Similarity Engine: Scikit-Learn — Uses TF-IDF Vectorization and Cosine Similarity for mathematical plagiarism detection.
+### 1. Subtitle & Script Theft (IPR)
 
-Data & Infrastructure
-Database: Google BigQuery — Interfaces with global patent and publication datasets (e.g., patents-public-data) to act as a reference corpus for IPR.
+- Method: OCR + ASR + TF-IDF / Cosine similarity
+- Generates a Plagiarism Risk score by comparing extracted narrative content against a BigQuery reference corpus.
 
-Video Processing: MoviePy — Handles frame-by-frame sampling and audio stream isolation.
+### 2. Political Compliance
 
-Environment: Google Colab — Optimized for T4 GPU acceleration to ensure rapid multi-modal processing.
+- Method: Zero-shot classification
+- Detects political intent, campaign messaging, and absence of mandatory disclaimers such as “Paid for by” or “Authorized by”.
 
-📋 Core Audit Domains
-1. Subtitle & Script Theft (IPR)
-Method: OCR + ASR + TF-IDF Cosine Similarity.
+### 3. Regulated Substances
 
-Logic: The system extracts the combined narrative (what is said + what is shown) and compares it against the BigQuery reference corpus. It generates a Plagiarism Risk Percentage to identify if the script structure or technical content is stolen from a published work.
+- Method: Multi-modal keyword and intent mapping
+- Identifies covert promotions of alcohol, tobacco, and vaping products using OCR and ASR correlation.
 
-2. Political Compliance
-Method: Zero-Shot Classification.
+### 4. Medical & Weight-Loss Claims
 
-Logic: Detects political intent or electioneering. It specifically scans for mandatory "Paid for by" or "Authorized by" disclaimers. If political intent is found without these markers, it flags a high-risk violation.
+- Method: Semantic analysis
+- Detects extraordinary or misleading medical claims and flags missing medical disclaimers.
 
-3. Regulated Substances
-Method: Multi-Modal Keyword & Intent Mapping.
+## Workflow Logic
 
-Logic: Identifies the promotion of Alcohol, Tobacco, or Vaping. It cross-references visual branding (OCR) with spoken promotion (ASR) to catch "covert" advertising.
+1. User uploads a video (`.mp4`, `.mov`) or image file.
+2. Whisper converts audio into a searchable transcript.
+3. EasyOCR extracts visible text from sampled video frames.
+4. Relevant records are retrieved from the configured BigQuery dataset.
+5. TF-IDF + Cosine Similarity computes plagiarism and structural similarity scores.
+6. Gemini performs semantic reasoning and contextual compliance analysis.
+7. A final audit report is generated with domain-wise risk classifications.
 
-4. Medical & Weight Loss Scams
-Method: Semantic Analysis.
+## Architecture & Tech Stack
 
-Logic: Analyzes claims of "instant" or "miracle" results. It enforces compliance by checking for the absence of mandatory medical disclaimers like "Results not typical" or "Consult a healthcare professional."
+### AI & Machine Learning
 
-🔄 Workflow Logic
-Ingestion: User uploads a video (.mp4, .mov) or image to the notebook.
+- **LLM:** Gemini (semantic reasoning and contextual review)
+- **ASR:** OpenAI Whisper (Tiny) for speech-to-text
+- **OCR:** EasyOCR for on-screen text extraction
+- **Similarity Engine:** scikit-learn (TF-IDF + Cosine similarity)
 
-Multimodal Extraction: * Whisper transcribes the audio into a transcript.
+### Infrastructure & Processing
 
-EasyOCR samples video frames (at 50% duration) to capture on-screen text.
+- **Video Processing:** MoviePy for frame sampling and audio extraction
+- **Database:** Google BigQuery (reference corpus such as patents-public-data)
+- **Execution Environment:** Google Colab (recommended; use T4 GPU for acceleration)
 
-Reference Retrieval: The system pulls up to 200 relevant records from the specified BigQuery table (e.g., legal_data.patent_corpus).
+## Quickstart (Google Colab)
 
-IPR Scoring: A mathematical similarity score is calculated between the extracted video text and the BigQuery corpus.
+1. Open the notebook `prism-eipr.ipynb` in Google Colab.
+2. Set runtime to GPU (T4) via Runtime → Change runtime type.
+3. Upload `credentials.json` for GCP access to the Colab workspace (or mount GCS as appropriate).
+4. Add your LLM/API keys to Colab secrets (e.g., `GEMINI_API_KEY`).
+5. Run cells in order to ingest a video and produce an audit report.
 
-LLM Audit: The Gemini 2.5 Flash model performs a "Contextual Review" to generate a detailed compliance report, flagging specific violations and reasoning.
+## Configuration
 
-⚙️ Setup & Configuration
-API Keys: * Store your GEMINI_API_KEY in the Colab Secrets tab.
+- **GEMINI_API_KEY:** Store in Colab Secrets or as an environment variable.
+- **GCP Credentials:** Place `credentials.json` in the working directory or configure application default credentials.
+- **BigQuery Dataset/Table:** Configure the notebook variable pointing to the reference corpus (example: `legal_data.patent_corpus`).
 
-Obtain your key from the Google AI Studio (as seen in your provided documentation).
+## Example Output
 
-GCP Credentials: * Upload your credentials.json file to the /content/ directory to enable BigQuery access.
+The notebook produces a human-readable compliance report, for example:
 
-Hardware: * Ensure the notebook is set to T4 GPU (Runtime > Change runtime type) to enable CUDA acceleration for Whisper and EasyOCR.
+```plaintext
+📊 IPR PLAGIARISM RISK: 12.7%
 
-📈 Example Output
-Plaintext
-📊 IPR PLAGIARISM RISK: 0.0%
-⚖️ COMPLIANCE REPORT:
-- POLITICS: Compliant (No intent found)
-- SUBSTANCES: Compliant (No promotion found)
-- WEIGHT LOSS: HIGH RISK (Claims 'dramatic change' without medical disclaimer)
+⚖️ COMPLIANCE SUMMARY:
+- POLITICS: Non-compliant (political intent detected; missing disclaimers)
+- SUBSTANCES: Compliant (no promotion detected)
+- WEIGHT LOSS: HIGH RISK (unsubstantiated claims; missing medical disclaimer)
+```
+
+## Notes & Requirements
+
+- Recommended: Run in Google Colab with a T4 GPU for reasonable performance.
+- BigQuery credentials are required to query the reference corpus.
+- CUDA acceleration significantly improves Whisper and OCR performance.
+- Ensure all required Python dependencies are installed before execution.
+- This project assumes lawful use and appropriate access to third-party datasets.
+
+## Dependencies
+
+```bash
+pip install openai-whisper easyocr moviepy scikit-learn google-cloud-bigquery opencv-python
+```
+
+## Supported Input Formats
+
+### Video
+- `.mp4`
+- `.mov`
+- `.avi`
+
+### Images
+- `.png`
+- `.jpg`
+- `.jpeg`
+
+## Files
+
+- `prism-eipr.ipynb` — Primary analysis notebook for ingestion and auditing
+- `credentials.json` — Google Cloud credentials for BigQuery access
+- `README.md` — Project documentation
+
+## Future Enhancements
+
+- Live-stream moderation support
+- Multi-language compliance auditing
+- Advanced logo and brand detection
+- Deepfake and synthetic media analysis
+- Dashboard integration for enterprise monitoring
+
+## License & Contact
+
+This repository contains prototype code and notes. Add a license file (e.g., `LICENSE`) to specify terms. For questions or collaboration, open an issue or contact the author.
