@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+refs/
+samples/
+report.json
+*.wav
