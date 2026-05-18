@@ -1,0 +1,60 @@
+{
+  "frames": [
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 0,
+      "phash": "e0e0850f5c5c1e0f",
+      "dhash": "0082028000010000",
+      "whash": "00e7c7c000000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 1,
+      "phash": "e1a0a2491d1f0f1f",
+      "dhash": "0082020010020000",
+      "whash": "00e7071818000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 2,
+      "phash": "aabc974b45f1e0f0",
+      "dhash": "0022820000010000",
+      "whash": "0007c70000000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 3,
+      "phash": "8d9e3667f0d0c9e1",
+      "dhash": "0022021000020000",
+      "whash": "00071f1800000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 4,
+      "phash": "e0a0874a5c1f0f1e",
+      "dhash": "0082020080010000",
+      "whash": "00e707c0c0000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 5,
+      "phash": "e9b0b267161e0d1d",
+      "dhash": "0082121000020000",
+      "whash": "00e71f1800000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 6,
+      "phash": "8a1e174be5f4e0e0",
+      "dhash": "0022828000010000",
+      "whash": "0004c7c000000000"
+    },
+    {
+      "asset_id": "licensed_master_clip",
+      "timestamp_sec": 7,
+      "phash": "8f1e1669f1f0e1e1",
+      "dhash": "0022020010020000",
+      "whash": "0004071818000000"
+    }
+  ]
+}

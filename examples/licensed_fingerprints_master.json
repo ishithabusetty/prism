@@ -1,0 +1,25 @@
+{
+  "clips": [
+    {
+      "clip_id": "licensed_master_clip",
+      "scenes": [
+        {
+          "duration_sec": 2.0,
+          "phash": "e1a0a2491d1f0f1f"
+        },
+        {
+          "duration_sec": 2.0,
+          "phash": "8d9e3667f0d0c9e1"
+        },
+        {
+          "duration_sec": 2.0,
+          "phash": "e9b0b267161e0d1d"
+        },
+        {
+          "duration_sec": 2.0,
+          "phash": "8f1e1669f1f0e1e1"
+        }
+      ]
+    }
+  ]
+}
